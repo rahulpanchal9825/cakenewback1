@@ -100,7 +100,7 @@ export const addproduct = async (req, res) => {
             })
         }
         await Product.create({title,category,price })
-        let product = ({title,category,PeriodicWave })
+        let product = ({title,category,price })
         return res.status(200).json({
             message: "Product Add successfully",
             success: true,
