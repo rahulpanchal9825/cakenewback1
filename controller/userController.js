@@ -84,9 +84,9 @@ export const logout = async (req, res) => {
 }
 
 export const addproduct = async (req, res) => {
-    const { title,category,price,weight } = req.body;
+    const { title,category,price } = req.body;
     try {
-        if ( !title || !category ||!price || !weight) {
+        if ( !title || !category ||!price ) {
             return res.status(401).json({
                 message: "Something is missing ,please check",
                 success: false
@@ -99,8 +99,8 @@ export const addproduct = async (req, res) => {
                 success: false
             })
         }
-        await Product.create({title,category,price,weight })
-        let product = ({title,category,price,weight })
+        await Product.create({title,category,price })
+        let product = ({title,category,PeriodicWave })
         return res.status(200).json({
             message: "Product Add successfully",
             success: true,
