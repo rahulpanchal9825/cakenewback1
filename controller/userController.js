@@ -131,7 +131,9 @@ export const listProductCategory = async (req, res) => {
         return res.status(200).json({
             message: "Fetched category products",
             success: true,
-            categoryProducts: formattedResponse
+            categoryProducts: formattedResponse,
+            categoryProducts2:categoryProducts
+
         });
 
     } catch (error) {
