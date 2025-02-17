@@ -92,13 +92,13 @@ export const addproduct = async (req, res) => {
                 success: false
             })
         }
-        const exstingProduct = await Product.findOne({ title: title })
-        if (exstingProduct) {
-            return res.status(401).json({
-                message: "Product Already exsist",
-                success: false
-            })
-        }
+        // const exstingProduct = await Product.findOne({ title: title })
+        // if (exstingProduct) {
+        //     return res.status(401).json({
+        //         message: "Product Already exsist",
+        //         success: false
+        //     })
+        // }
         await Product.create({title,category,price,img })
         let product = ({title,category,price ,img})
         return res.status(200).json({
