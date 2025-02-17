@@ -27,7 +27,7 @@ app.use(urlencoded({ extended: true })); // Parse URL-encoded bodies (for form s
 // Root endpoint
 app.get("/", (req, res) => {
     return res.status(200).json({
-        message: "I'm coming from backend",
+        message: "I'm coming from backend backend1",
         success: true,
     });
 });
