@@ -1,9 +1,9 @@
 import express, { urlencoded } from "express";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
+import cors from "cors";
 import connectDb from "./utils/db.js";
 import userRoute from "./routes/userRoute.js";
-import cors from "cors";
 
 // Load environment variables
 dotenv.config();
@@ -12,17 +12,19 @@ dotenv.config();
 const PORT = process.env.PORT || 5000;
 const app = express();
 
-// Middleware to handle CORS
+// ✅ Proper CORS configuration
 const corsOptions = {
-    origin: '*', // Allow requests only from this origin
-    credentials: true, // Allow cookies and authorization headers with requests
+    origin: ["http://localhost:3000", "https://yourfrontend.com"], // Change to your frontend URL
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true, // Allow cookies and authorization headers
+    allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 // Use middlewares
-app.use(cors(corsOptions)); // Enable CORS for all routes
-app.use(express.json()); // Parse JSON bodies
+app.use(cors(corsOptions)); // Enable CORS with secure settings
+app.use(express.json()); // Parse JSON request bodies
 app.use(cookieParser()); // Parse cookies
-app.use(urlencoded({ extended: true })); // Parse URL-encoded bodies (for form submissions)
+app.use(urlencoded({ extended: true })); // Parse URL-encoded data
 
 // Root endpoint
 app.get("/", (req, res) => {
@@ -32,18 +34,18 @@ app.get("/", (req, res) => {
     });
 });
 
-// Use API Routes (e.g., /api/user)
+// Use API Routes
 app.use("/api", userRoute);
 
 // Connect to the database and start the server
 connectDb()
     .then(() => {
-        console.log("Database connected successfully!");
+        console.log("✅ Database connected successfully!");
         app.listen(PORT, '0.0.0.0', () => {
-            console.log(`Server running on http://localhost:${PORT}`);
+            console.log(`🚀 Server running on http://localhost:${PORT}`);
         });
     })
     .catch((error) => {
-        console.error("Failed to connect to the database:", error);
-        process.exit(1); // Exit the process if the connection fails
+        console.error("❌ Failed to connect to the database:", error);
+        process.exit(1); // Exit process on DB connection failure
     });
