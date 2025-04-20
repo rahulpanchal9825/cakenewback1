@@ -179,7 +179,6 @@ export const listProductAll = async (req, res) => {
 
 export const singleProduct = async (req, res) => {
     const { id } = req.query;  // Getting id from query parameters
-    console.log("idd",id)
     try {
         if (!id) {
             return res.status(400).json({
