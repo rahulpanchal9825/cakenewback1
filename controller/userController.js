@@ -176,3 +176,40 @@ export const listProductAll = async (req, res) => {
         });
     }
 };
+
+export const singleProduct = async (req, res) => {
+    const { id } = req.query;  // Getting id from query parameters
+    try {
+        if (!id) {
+            return res.status(400).json({
+                message: "Product ID is required.",
+                success: false
+            });
+        }
+
+        // Find the product by ID (assuming MongoDB + Mongoose or similar)
+        const product = await Product.findByPk(id); // Sequelize way
+
+        if (!product) {
+            return res.status(404).json({
+                message: "Product not found.",
+                success: false
+            });
+        }
+
+        return res.status(200).json({
+            message: "Product fetched successfully.",
+            success: true,
+            product
+        });
+
+    } catch (error) {
+        console.error('Error fetching product:', error);
+
+        return res.status(500).json({
+            message: "Error fetching product",
+            success: false,
+            error: error.message
+        });
+    }
+};
