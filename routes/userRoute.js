@@ -7,6 +7,6 @@ router.route('/login').post(login)
 router.route('/logout').get(logout)
 router.route('/add-product').post(addproduct)
 router.route('/all-p').get(listProductCategory)
-router.route('/cake/:id').get(singleProduct)
+router.route('/cake').get(singleProduct)
 
 export default router;

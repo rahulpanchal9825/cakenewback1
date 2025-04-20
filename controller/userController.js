@@ -179,6 +179,7 @@ export const listProductAll = async (req, res) => {
 
 export const singleProduct = async (req, res) => {
     const { id } = req.query;  // Getting id from query parameters
+    console.log("idd",id)
     try {
         if (!id) {
             return res.status(400).json({
@@ -188,7 +189,7 @@ export const singleProduct = async (req, res) => {
         }
 
         // Find the product by ID (assuming MongoDB + Mongoose or similar)
-        const product = await Product.findByPk(id); // Sequelize way
+        const product = await Product.findById(id); // Sequelize way
 
         if (!product) {
             return res.status(404).json({
