@@ -14,7 +14,7 @@ const app = express();
 
 // ✅ Proper CORS configuration
 const corsOptions = {
-    origin: ["http://localhost:3000", "https://yourfrontend.com"], // Change to your frontend URL
+    origin: ["http://localhost:3000", "https://cakenewback1.vercel.app"], // Change to your frontend URL
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true, // Allow cookies and authorization headers
     allowedHeaders: ["Content-Type", "Authorization"],
