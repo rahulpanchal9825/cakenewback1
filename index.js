@@ -1,4 +1,4 @@
-import express, { urlencoded } from "express";
+import express  from "express";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -14,17 +14,29 @@ const app = express();
 
 // ✅ Proper CORS configuration
 const corsOptions = {
-    origin: ["http://localhost:3000", "https://shreejicakenew.vercel.app"], // Change to your frontend URL
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true, // Allow cookies and authorization headers
-    allowedHeaders: ["Content-Type", "Authorization"],
+  origin: (origin, callback) => {
+    const allowedOrigins = [
+      "http://localhost:3000",
+      "https://shreejicakenew.vercel.app",
+    ];
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+  credentials: true,
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
+
 
 // Use middlewares
 app.use(cors(corsOptions)); // Enable CORS with secure settings
 app.use(express.json()); // Parse JSON request bodies
 app.use(cookieParser()); // Parse cookies
-app.use(urlencoded({ extended: true })); // Parse URL-encoded data
+app.use(express.urlencoded({ extended: true }));
+// app.use(urlencoded({ extended: true })); // Parse URL-encoded data
 
 // Root endpoint
 app.get("/", (req, res) => {
